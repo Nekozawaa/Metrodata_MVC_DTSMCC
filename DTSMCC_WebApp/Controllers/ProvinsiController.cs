@@ -103,11 +103,30 @@ namespace DTSMCC_WebApp.Controllers
         [HttpPost]
         public IActionResult Create(Provinsi provinsi)
         {
-            using(var context = new )
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "INSERT into Provinsi (IdProvinsi, NamaProvinsi) VALUES (@id, @nama)";
+                    command.Parameters.AddWithValue("@id", provinsi.idProvinsi);
+                    command.Parameters.AddWithValue("@nama", provinsi.namaProvinsi);
+                    try
+                    {
+                        connection.Open();
+                        int recordsAffected = command.ExecuteNonQuery();
+                    }
+                    catch (SqlException)
+                    {
+                        Console.WriteLine("Terdapat Error !");
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
             }
-
             return View();
         }
 
@@ -122,6 +141,7 @@ namespace DTSMCC_WebApp.Controllers
         }
 
         //POST
+        [HttpPost]
         public IActionResult Update(Provinsi provinsi)
         {
             return View();
@@ -154,6 +174,7 @@ namespace DTSMCC_WebApp.Controllers
         }
 
         //POST
+        [HttpPost]
         public IActionResult Delete(Provinsi provinsi)
         {
             return View();
