@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DTSMCC_WebApp.Models.Provinsi>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a href="Provinsi/Create">Create New</a>
+    <a href="Provinsi/ReadById">Read By Id</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idProvinsi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.namaProvinsi)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idProvinsi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.namaProvinsi)
+            </td>
+            <td>
+                @Html.ActionLink("Update", "Update", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
